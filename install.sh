@@ -318,18 +318,12 @@ prompt_server_init() {
 
 main() {
     # Parse arguments
-    AUTO_INIT=0
     for arg in "$@"; do
         case "$arg" in
-            --yes|-y)
-                AUTO_INIT=1
-                ;;
             --help|-h)
                 printf "Flaase Installation Script\n\n"
-                printf "Usage: curl -fsSL https://get.flaase.com | sh\n"
-                printf "   or: curl -fsSL https://get.flaase.com | sh -s -- --yes\n\n"
+                printf "Usage: curl -fsSL https://get.flaase.com | sh\n\n"
                 printf "Options:\n"
-                printf "  --yes, -y    Automatically run 'fl server init' after installation\n"
                 printf "  --help, -h   Show this help message\n"
                 exit 0
                 ;;
@@ -357,11 +351,7 @@ main() {
     verify_installation
     
     # Post-installation
-    if [ "$AUTO_INIT" -eq 1 ]; then
-        run_server_init
-    else
-        prompt_server_init
-    fi
+    print_next_steps
 }
 
 main "$@"
