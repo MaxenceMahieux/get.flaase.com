@@ -224,6 +224,8 @@ download_binary() {
         
         if [ -f "${TMP_DIR}/flaase.tar.gz.sha256" ]; then
             cd "$TMP_DIR"
+            # Fix filename in checksum file (release uses artifact name, we use flaase.tar.gz)
+            sed -i "s/${artifact_name}.tar.gz/flaase.tar.gz/" flaase.tar.gz.sha256
             if ! sha256sum -c flaase.tar.gz.sha256 >/dev/null 2>&1; then
                 fatal "Checksum verification failed! The download may be corrupted."
             fi
